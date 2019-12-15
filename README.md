@@ -57,7 +57,7 @@ This project contains the following files:
    
    Each of the extracted features was used in all of the classifiers. Once fitting the model, we compared the f1 score and checked the confusion matrix. To view the performance of each classifier easily, we plot the confusion matrix with matplotlib and save the result in the folder /plots. 
    
- - The plots/ folder that contains 4 folders for each classifier and inside which contains the plots of confusion matrix of each feature
+ - The plots/ folder that contains 4 folders for each classifier and inside which contains the plots of normalized confusion matrix of each feature
 
  - The liar_dataset/ folder that contains origin LIAR data, which is a publicly available dataset for fake news detection.
 

@@ -59,6 +59,8 @@ This project contains the following files:
    
  - The plots/ folder that contains 4 folders for each classifier and inside which contains the plots of confusion matrix of each feature
 
+ - The liar_dataset/ folder that contains origin LIAR data, which is a publicly available dataset for fake news detection.
+
 The files that have a main method than can be executed are:
 
 - classifier.py (generates Precision, Recall and F1 Score table of each classifier and visualization files of corresponding confusion matrix)

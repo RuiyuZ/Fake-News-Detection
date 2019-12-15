@@ -39,12 +39,15 @@ Column 2: Label (Label class contains: True, False)
 This project contains the following files:
 
 - The data folder contains the fake and real news data in csv format.
+
 - The tokenizer.py script contains our own tokenizer method.
+
 - The features.py script contains 4 features that are used in this project:
    - Word Count Feature
    - POS Tagger Feature
    - Sentiment Score Feature
    - Word/sentence length Feature
+   
 - The classifier.py script contains 5 classifiers from sklearn that are used in this project:
    - Naive-Bayes Classifier
    - Logistic Regression Classifier
@@ -52,7 +55,9 @@ This project contains the following files:
    - Decision Tree Classifier
    - Linear SVM Classifier
    
-   Each of the extracted features was used in all of the classifiers. Once fitting the model, we compared the f1 score and checked the confusion matrix. To view the performance of each classifier easily, we plot the confusion matrix with matplotlib and save the result in the folder /plots.
+   Each of the extracted features was used in all of the classifiers. Once fitting the model, we compared the f1 score and checked the confusion matrix. To view the performance of each classifier easily, we plot the confusion matrix with matplotlib and save the result in the folder /plots. 
+   
+ - The plots/ folder that contains 4 folders for each classifier and inside which contains the plots of confusion matrix of each feature
 
 The files that have a main method than can be executed are:
 

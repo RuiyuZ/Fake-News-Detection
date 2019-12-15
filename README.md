@@ -23,7 +23,7 @@ What things you need to install the software and how to install them:
    - warnings
    - itertools
    
-#### Dataset used
+### Dataset used
 
 We use the LIAR: a publicly available dataset for fake news detection. The data comprises 12.8K manually labeled short statement with detailed analysis and reference, which was collected from PolitiFact.com. We use a version of processed data, which can be acquired from the https://github.com/nishitpatel01/Fake_News_Detection.
 
@@ -34,7 +34,7 @@ Column 2: Label (Label class contains: True, False)
 
    - The data are in the placed in the /data folder in csv format
 
-#### File descriptions
+### File descriptions
 
 This project contains the following files:
 
@@ -56,5 +56,5 @@ This project contains the following files:
 
 The files that have a main method than can be executed are:
 
-classifier.py (generates Precision, Recall and F1 Score table of each classifier and visualization files of corresponding confusion matrix)
+- classifier.py (generates Precision, Recall and F1 Score table of each classifier and visualization files of corresponding confusion matrix)
  

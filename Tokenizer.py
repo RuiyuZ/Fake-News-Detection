@@ -3,9 +3,6 @@ import re
 
 class Tokenizer(object):
 
-    def __init__(self):
-        print('tokenizer created')
-
     REPLACE_ABBRE_NOT = re.compile("n't"), " not"
     REPLACE_QUOTES = re.compile(r'[‘’“”"~]'), " "
     REPLACE_SINGLE_QUOTES_BOUNDARY = re.compile(r"\'\b|\b\'"), " "
@@ -39,20 +36,4 @@ class Tokenizer(object):
         for regexp, substitution in self.TOKEN_REGEXES:
             text = regexp.sub(substitution, text)
         return text.split()
-
-
-if __name__ == '__main__':
-
-    token_set = set()
-    tokenizer = Tokenizer()
-
-    file = open('dataset.csv', 'r')
-    for line in file:
-        token_set.update(tokenizer.tokenize(line))
-    file.close()
-
-    filtered = [token for token in token_set if not token.isdigit() and not token.isalpha()]
-    print(filtered)
-    print('length:', len(filtered))
-
 

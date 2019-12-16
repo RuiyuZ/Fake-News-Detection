@@ -59,7 +59,7 @@ This project contains the following files:
    
  - The plots/ folder that contains 4 folders for each classifier and inside which contains the plots of normalized confusion matrix of each feature
 
- - The liar_dataset/ folder that contains origin LIAR data, which is a publicly available dataset for fake news detection.
+ - The liar_dataset/ folder that contains original LIAR data, which is a publicly available dataset for fake news detection.
 
 The files that can be executed is:
 

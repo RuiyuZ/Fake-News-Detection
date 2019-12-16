@@ -23,10 +23,10 @@ from sklearn.metrics import accuracy_score, f1_score, confusion_matrix, classifi
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 import warnings
-warnings.filterwarnings("ignore")
 from sklearn.svm import LinearSVC
 from features import *
 from tokenizer import tokenize
+warnings.filterwarnings("ignore")
 
 
 # In[2]:
@@ -45,7 +45,8 @@ def read_file(filename):
         for data in data_set:
             data[0] = tokenize(data[0])
         return data_set
-    
+
+
 def extract_words(data_set):
     '''construct a sorted list of all the words (no duplicates) in the data set'''
     words = []
@@ -78,7 +79,6 @@ except FileExistsError:
 # In[5]:
 
 
-""" One Hot Encoder """
 def ohe_encoder(X):
     """ Use One Hot Encoder deals to turn all values in a list into binary values"""
     ohe_encoder = preprocessing.OneHotEncoder(categories='auto', handle_unknown='ignore')
@@ -94,7 +94,7 @@ def get_X(feature):
     try:
         X = [feature(d) for (d, label) in documents]
         X = ohe_encoder(X)
-    except:
+    except Exception:
         X = [feature(d, documents_words) for (d, label) in documents]
         X = ohe_encoder(X)
     return X
@@ -111,7 +111,7 @@ def plot_confusion_matrix(cm, classes,
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
     """
-    
+
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
     plt.colorbar()
@@ -150,17 +150,17 @@ except FileExistsError:
 # In[15]:
 
 
-def run_classifier(feature, classifier, classifier_name): 
+def run_classifier(feature, classifier, classifier_name):
     X = get_X(feature)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
     clf = classifier
-    #clf = MultinomialNB()
+    # clf = MultinomialNB()
     clf.fit(X_train, y_train)
     accuracy = clf.score(X_test, y_test)
     y_pred = clf.predict(X_test)
-    #f1 = f1_score(y_test, y_pred.tolist(), pos_label="pos")
+    # f1 = f1_score(y_test, y_pred.tolist(), pos_label="pos")
     cnf_matrix = confusion_matrix(y_test, y_pred.tolist())
     np.set_printoptions(precision=2)
 #     print(cnf_matrix)
@@ -170,7 +170,7 @@ def run_classifier(feature, classifier, classifier_name):
         os.mkdir(clf_folder)
     except FileExistsError:
         pass
-    class_names = ['real','fake']
+    class_names = ['real', 'fake']
     plt.figure()
     plot_confusion_matrix(cnf_matrix, classes=class_names,
                           title='Confusion matrix, without normalization')
@@ -180,10 +180,10 @@ def run_classifier(feature, classifier, classifier_name):
     plot_confusion_matrix(cnf_matrix, classes=class_names, normalize=True,
                           title='Normalized confusion matrix using '+feature.__name__)
 
-    plt.savefig(clf_folder + '/' + feature.__name__ + '.png' )
+    plt.savefig(clf_folder + '/' + feature.__name__ + '.png')
     plt.show()
-    
-    target_names = ['real','fake']
+
+    target_names = ['real', 'fake']
     clf_report = classification_report(y_test, y_pred.tolist(), target_names=target_names)
     print(clf_report)
 
@@ -227,7 +227,7 @@ for feature in features:
 for feature in features:
     print("============ DecisionTreeClassifier ============")
     print(feature.__name__)
-    run_classifier(feature, tree.DecisionTreeClassifier(),'Decision Tree')
+    run_classifier(feature, tree.DecisionTreeClassifier(), 'Decision Tree')
 
 
 # In[21]:
@@ -237,4 +237,3 @@ for feature in features:
     print("=========== LinearSVC =============")
     print(feature.__name__)
     run_classifier(feature, LinearSVC(), 'Linear SVM')
-

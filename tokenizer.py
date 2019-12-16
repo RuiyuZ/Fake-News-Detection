@@ -28,9 +28,9 @@ TOKEN_REGEXES = [
     REPLACE_PERIOD_EOL
 ]
 
+
 def tokenize(text):
     text = text.lower()
     for regexp, substitution in TOKEN_REGEXES:
         text = regexp.sub(substitution, text)
     return text.split()
-

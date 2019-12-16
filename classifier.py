@@ -45,6 +45,7 @@ def extract_words(data_set):
         words += data[0]
     return sorted(set(words))
 
+
 """ Dataset: one-sentence"""
 file_name = os.path.join(os.getcwd(), 'data', 'train.csv')
 
@@ -76,6 +77,7 @@ def get_X(feature):
         X = [feature(d, documents_words) for (d, label) in documents]
         X = ohe_encoder(X)
     return X
+
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
@@ -111,7 +113,7 @@ def plot_confusion_matrix(cm, classes,
     plt.xlabel('Predicted label')
 
 
-folder = os.path.join(os.getcwd(),'plots')
+folder = os.path.join(os.getcwd(), 'plots')
 try:
     os.mkdir(folder)
 except FileExistsError:
@@ -156,6 +158,7 @@ def run_classifier(feature, classifier, classifier_name):
     clf_report = classification_report(y_test, y_pred.tolist(), target_names=target_names)
     print(clf_report)
 
+
 def main():
     """ Train each classifier with 4 features, print the precision, recall, and f1 score,
     save the normalized matrix plot in to folder /plots"""
@@ -185,6 +188,7 @@ def main():
         print("=========== LinearSVC =============")
         print(feature.__name__)
         run_classifier(feature, LinearSVC(), 'Linear SVM')
+
 
 if __name__ == "__main__":
     main()

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[16]:
+# In[1]:
 
 
 import re
@@ -29,7 +29,7 @@ from features import *
 from tokenizer import tokenize
 
 
-# In[17]:
+# In[2]:
 
 
 def read_file(filename):
@@ -54,7 +54,7 @@ def extract_words(data_set):
     return sorted(set(words))
 
 
-# In[18]:
+# In[3]:
 
 
 """ Dataset: one-sentence"""
@@ -65,13 +65,7 @@ documents = read_file(file_name)
 y = [lst[1] for lst in documents]
 
 
-# In[19]:
-
-
-documents
-
-
-# In[20]:
+# In[4]:
 
 
 folder = os.getcwd() + '/classifiers'
@@ -81,7 +75,7 @@ except FileExistsError:
     pass
 
 
-# In[21]:
+# In[5]:
 
 
 """ One Hot Encoder """
@@ -93,7 +87,7 @@ def ohe_encoder(X):
     return X
 
 
-# In[22]:
+# In[6]:
 
 
 def get_X(feature):
@@ -106,7 +100,7 @@ def get_X(feature):
     return X
 
 
-# In[23]:
+# In[7]:
 
 
 def plot_confusion_matrix(cm, classes,
@@ -143,15 +137,20 @@ def plot_confusion_matrix(cm, classes,
     plt.xlabel('Predicted label')
 
 
-# In[24]:
+# In[8]:
 
-PLOT_FOLDER = os.getcwd() + '/plots'
+
+folder = os.getcwd() + '/plots'
 try:
     os.mkdir(folder)
 except FileExistsError:
     pass
 
-def run_classifier(feature, classifier): 
+
+# In[15]:
+
+
+def run_classifier(feature, classifier, classifier_name): 
     X = get_X(feature)
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
@@ -166,6 +165,11 @@ def run_classifier(feature, classifier):
     np.set_printoptions(precision=2)
 #     print(cnf_matrix)
     # Plot non-normalized confusion matrix
+    clf_folder = os.getcwd() + '/plots/' + classifier_name
+    try:
+        os.mkdir(clf_folder)
+    except FileExistsError:
+        pass
     class_names = ['real','fake']
     plt.figure()
     plot_confusion_matrix(cnf_matrix, classes=class_names,
@@ -174,69 +178,63 @@ def run_classifier(feature, classifier):
     # Plot normalized confusion matrix
     plt.figure()
     plot_confusion_matrix(cnf_matrix, classes=class_names, normalize=True,
-                          title='Normalized confusion matrix using '+ feature.__name__)
+                          title='Normalized confusion matrix using '+feature.__name__)
 
-    plt.savefig(PLOT_FOLDER + '/' + classifier.__name__ + '+' + feature.__name__ + '.png' )
-    #plt.show()
+    plt.savefig(clf_folder + '/' + feature.__name__ + '.png' )
+    plt.show()
     
     target_names = ['real','fake']
     clf_report = classification_report(y_test, y_pred.tolist(), target_names=target_names)
     print(clf_report)
 
 
-# In[25]:
+# In[16]:
 
 
 features = [raw_count, pos_tagger, senti_features2, word_length_features]
 
 
-# In[ ]:
+# In[17]:
 
 
 for feature in features:
     print("============ MultinomialNB ============")
     print(feature.__name__)
-    run_classifier(feature, MultinomialNB())
+    run_classifier(feature, MultinomialNB(), 'Naive Bayes')
 
 
-# In[ ]:
+# In[18]:
 
 
 for feature in features:
     print("=========== LogisticRegression =============")
     print(feature.__name__)
-    run_classifier(feature, LogisticRegression())
+    run_classifier(feature, LogisticRegression(), 'Logistic Regression')
 
 
-# In[ ]:
+# In[19]:
 
 
 for feature in features:
     print("=========== RandomForestClassifier =============")
     print(feature.__name__)
-    run_classifier(feature, RandomForestClassifier())
+    run_classifier(feature, RandomForestClassifier(), 'Random Forest')
 
 
-# In[ ]:
+# In[20]:
 
 
 for feature in features:
     print("============ DecisionTreeClassifier ============")
     print(feature.__name__)
-    run_classifier(feature, tree.DecisionTreeClassifier())
+    run_classifier(feature, tree.DecisionTreeClassifier(),'Decision Tree')
 
 
-# In[ ]:
+# In[21]:
 
 
 for feature in features:
     print("=========== LinearSVC =============")
     print(feature.__name__)
-    run_classifier(feature, LinearSVC())
-
-
-# In[ ]:
-
-
-
+    run_classifier(feature, LinearSVC(), 'Linear SVM')
 

@@ -154,6 +154,7 @@ def run_classifier(feature, classifier, classifier_name):
 
     target_names = ['real', 'fake']
     clf_report = classification_report(y_test, y_pred.tolist(), target_names=target_names)
+    print("classification_report:")
     print(clf_report)
 
 features = [raw_count, pos_tagger, senti_features2, word_length_features]
@@ -167,37 +168,37 @@ def run_allClassifiers():
     run_LinearSVC()
 
 def run_MultinomialNB():
+    print("============ MultinomialNB ============")
     for feature in features:
-        print("============ MultinomialNB ============")
-        print(feature.__name__)
+        print("-----------", feature.__name__, "-----------")
         run_classifier(feature, MultinomialNB(), 'Naive Bayes')
 
 def run_LogisticRegression():
+    print("=========== LogisticRegression =============")
     for feature in features:
-        print("=========== LogisticRegression =============")
-        print(feature.__name__)
+        print("-----------", feature.__name__, "-----------")
         run_classifier(feature, LogisticRegression(), 'Logistic Regression')  
 
 def run_RandomForestClassifier():
+    print("=========== RandomForestClassifier =============")
     for feature in features:
-        print("=========== RandomForestClassifier =============")
-        print(feature.__name__)
+        print("-----------", feature.__name__, "-----------")
         run_classifier(feature, RandomForestClassifier(), 'Random Forest')
 
 def run_DecisionTreeClassifier():
+    print("============ DecisionTreeClassifier ============")
     for feature in features:
-        print("============ DecisionTreeClassifier ============")
-        print(feature.__name__)
+        print("-----------", feature.__name__, "-----------")
         run_classifier(feature, tree.DecisionTreeClassifier(), 'Decision Tree')
 
 def run_LinearSVC():
+    print("=========== LinearSVC =============")
     for feature in features:
-        print("=========== LinearSVC =============")
-        print(feature.__name__)
+        print("-----------", feature.__name__, "-----------")
         run_classifier(feature, LinearSVC(), 'Linear SVM')
 
 msg = """
-Choose a classifier:
+Choose a classifier to run:
     1 - All 5 Classifiers
     2 - Multinomial Naive Bayes
     3 - Logistic Regression

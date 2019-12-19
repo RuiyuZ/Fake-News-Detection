@@ -72,7 +72,7 @@ The files that contain the main method and can be executed is:
     ```
 - After hitting the enter, the program will ask for an input of which classifier you want to use like the following:
    ```
-   Choose a classifier:
+   Choose a classifier to run:
     1 - All 5 Classifiers
     2 - Multinomial Naive Bayes
     3 - Logistic Regression

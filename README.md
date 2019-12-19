@@ -71,14 +71,14 @@ The files that contain the main method and can be executed is:
     python3 classifier.py run
     ```
 - After hitting the enter, the program will ask for an input of which classifier you want to use like the following:
- ```
- Choose a classifier:
+   ```
+   Choose a classifier:
     1 - All 5 Classifiers
     2 - Multinomial Naive Bayes
     3 - Logistic Regression
     4 - Random Forest Classifier
     5 - Decision Tree Classifier
     6 - Linear SVM
- Type a number:
- ```
+   Type a number:
+   ```
  You need to type a number 1-6, and the corresponding classifier will be executed. The result will be printed to the terminal.

@@ -53,13 +53,6 @@ documents = read_file(file_name)
 y = [lst[1] for lst in documents]
 
 
-folder = os.path.join(os.getcwd(), 'classifiers')
-try:
-    os.mkdir(folder)
-except FileExistsError:
-    pass
-
-
 def ohe_encoder(X):
     """ Use One Hot Encoder deals to turn all values in a list into binary values"""
     ohe_encoder = preprocessing.OneHotEncoder(categories='auto', handle_unknown='ignore')
@@ -154,7 +147,7 @@ def run_classifier(feature, classifier, classifier_name):
 
     target_names = ['real', 'fake']
     clf_report = classification_report(y_test, y_pred.tolist(), target_names=target_names)
-    print("classification_report:")
+    print("Classification Report:")
     print(clf_report)
 
 features = [raw_count, pos_tagger, senti_features2, word_length_features]

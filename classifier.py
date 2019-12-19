@@ -45,7 +45,6 @@ def extract_words(data_set):
         words += data[0]
     return sorted(set(words))
 
-
 """ Dataset: one-sentence"""
 file_name = os.path.join(os.getcwd(), 'data', 'train.csv')
 
@@ -77,7 +76,6 @@ def get_X(feature):
         X = [feature(d, documents_words) for (d, label) in documents]
         X = ohe_encoder(X)
     return X
-
 
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
@@ -113,7 +111,7 @@ def plot_confusion_matrix(cm, classes,
     plt.xlabel('Predicted label')
 
 
-folder = os.path.join(os.getcwd(), 'plots')
+folder = os.path.join(os.getcwd(),'plots')
 try:
     os.mkdir(folder)
 except FileExistsError:
@@ -158,37 +156,105 @@ def run_classifier(feature, classifier, classifier_name):
     clf_report = classification_report(y_test, y_pred.tolist(), target_names=target_names)
     print(clf_report)
 
+features = [raw_count, pos_tagger, senti_features2, word_length_features]
 
-def main():
-    """ Train each classifier with 4 features, print the precision, recall, and f1 score,
-    save the normalized matrix plot in to folder /plots"""
-    features = [raw_count, pos_tagger, senti_features2, word_length_features]
 
+def run_allClassifiers():
+    run_MultinomialNB()
+    run_LogisticRegression()
+    run_RandomForestClassifier()
+    run_DecisionTreeClassifier()
+    run_LinearSVC()
+
+def run_MultinomialNB():
     for feature in features:
         print("============ MultinomialNB ============")
         print(feature.__name__)
         run_classifier(feature, MultinomialNB(), 'Naive Bayes')
 
+def run_LogisticRegression():
     for feature in features:
         print("=========== LogisticRegression =============")
         print(feature.__name__)
-        run_classifier(feature, LogisticRegression(), 'Logistic Regression')
+        run_classifier(feature, LogisticRegression(), 'Logistic Regression')  
 
+def run_RandomForestClassifier():
     for feature in features:
         print("=========== RandomForestClassifier =============")
         print(feature.__name__)
         run_classifier(feature, RandomForestClassifier(), 'Random Forest')
 
+def run_DecisionTreeClassifier():
     for feature in features:
         print("============ DecisionTreeClassifier ============")
         print(feature.__name__)
         run_classifier(feature, tree.DecisionTreeClassifier(), 'Decision Tree')
 
+def run_LinearSVC():
     for feature in features:
         print("=========== LinearSVC =============")
         print(feature.__name__)
         run_classifier(feature, LinearSVC(), 'Linear SVM')
 
+msg = """
+Choose a classifier:
+    1 - All 5 Classifiers
+    2 - Multinomial Naive Bayes
+    3 - Logistic Regression
+    4 - Random Forest Classifier
+    5 - Decision Tree Classifier
+    6 - Linear SVM
+Type a number:
+"""
+
+
+""" Method to ask for user input """
+def ask_user_input():
+    """ promp the user for an input, return the corresponding 
+    feature by user's choice"""
+    while True:
+        choice = input(msg)
+        try:
+            num_choice = int(choice)
+        except ValueError:
+            sys.stdout.write("You have to type a number 1-5!\n")
+            continue
+        else:
+            if num_choice == 1:
+                run_allClassifiers()
+                break
+            elif num_choice == 2:
+                run_MultinomialNB()
+                break
+            elif num_choice == 3:
+                run_LogisticRegression()
+                break
+            elif num_choice == 4:
+                run_RandomForestClassifier()
+                break
+            elif num_choice == 5:
+                run_DecisionTreeClassifier()
+                break
+            elif num_choice == 6:
+                run_LinearSVC()
+                break
+            else:
+                # if number entered is invalid, alert user and
+                # ask for input again
+                sys.stdout.write("You have to type a number 1-6!\n")
+                continue
+
+def main():
+    """ Train each classifier with 4 features, print the precision, recall, and f1 score,
+    save the normalized matrix plot in to folder /plots"""
+    args = sys.argv
+    try:
+        if len(args) == 2 and args[1] == 'run':
+            ask_user_input()
+        else:
+            print("argument invalid!")
+    except:
+        print("argument invalid!")
 
 if __name__ == "__main__":
     main()

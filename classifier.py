@@ -132,9 +132,9 @@ def run_classifier(feature, classifier, classifier_name):
     except FileExistsError:
         pass
     class_names = ['real', 'fake']
-    plt.figure()
-    plot_confusion_matrix(cnf_matrix, classes=class_names,
-                          title='Confusion matrix, without normalization')
+    # plt.figure()
+    # plot_confusion_matrix(cnf_matrix, classes=class_names,
+    #                       title='Confusion matrix, without normalization')
 
     # Plot normalized confusion matrix
     plt.figure()
@@ -143,7 +143,7 @@ def run_classifier(feature, classifier, classifier_name):
 
     path = os.path.join(clf_folder, feature.__name__ + '.png')
     plt.savefig(path)
-    plt.show()
+    #plt.show()
 
     target_names = ['real', 'fake']
     clf_report = classification_report(y_test, y_pred.tolist(), target_names=target_names)
